@@ -1,0 +1,30 @@
+#include <iostream>
+using namespace std;
+
+int point[31][31];
+
+int dp(const int a, const int b) {
+	if (point[a][b] != -1)
+		return point[a][b];
+	int c = 0;
+	for (int i = 1; i < b; i++) {
+		const int d = dp(a - 1, i);
+		point[a - 1][i] = d;
+		c += d;
+	}
+	return c;
+}
+
+int main() {
+	int t;
+	cin >> t;
+	for (int i = 0; i < t; i++) {
+		for (auto& j : point)
+			fill_n(j, 31, -1);
+		for (int j = 1; j < 31; j++)
+			point[1][j] = j;
+		int n, m;
+		cin >> n >> m;
+		cout << dp(n, m) << endl;
+	}
+}
