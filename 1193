@@ -1,0 +1,23 @@
+#include <iostream>
+using namespace std;
+
+int main(void) {
+	int x, sum = 1, up = 1;
+	bool isOdd = false;
+	cin >> x;
+	while (true) {
+		if (x <= sum) {
+			if (up % 2)
+				isOdd = true;
+			break;
+		}
+		up++;
+		sum += up;
+	}
+	const int num = sum - x + 1;
+	if (isOdd)
+		cout << num << "/" << up + 1 - num;
+	else
+		cout << up + 1 - num << "/" << num;
+	return 0;
+}
