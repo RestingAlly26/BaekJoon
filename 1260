@@ -1,0 +1,63 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int n, m, v;
+priority_queue<int> mp1[1001];
+priority_queue<int, vector<int>, greater<>> mp2[1001];
+bool visited[1001];
+
+void dfs() {
+	stack<int> s;
+	fill_n(visited, 1001, false);
+	s.push(v);
+	while (!s.empty()) {
+		if (!visited[s.top()]) {
+			cout << s.top() << " ";
+			const int temp = s.top();
+			visited[temp] = true;
+			s.pop();
+			while (!mp1[temp].empty()) {
+				s.push(mp1[temp].top());
+				mp1[temp].pop();
+			}
+		}
+		else
+			s.pop();
+	}
+	cout << endl;
+}
+
+void bfs() {
+	queue<int> q;
+	fill_n(visited, 1001, false);
+	q.push(v);
+	while (!q.empty()) {
+		if (!visited[q.front()]) {
+			cout << q.front() << " ";
+			const int temp = q.front();
+			visited[temp] = true;
+			q.pop();
+			while (!mp2[temp].empty()) {
+				q.push(mp2[temp].top());
+				mp2[temp].pop();
+			}
+		}
+		else
+			q.pop();
+	}
+	cout << endl;
+}
+
+int main() {
+	cin >> n >> m >> v;
+	for (int i = 0; i < m; i++) {
+		int temp1, temp2;
+		cin >> temp1 >> temp2;
+		mp1[temp1].push(temp2);
+		mp1[temp2].push(temp1);
+		mp2[temp1].push(temp2);
+		mp2[temp2].push(temp1);
+	}
+	dfs();
+	bfs();
+}
