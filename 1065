@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> sq;
+
+void separation(const int b) {
+	int a = b;
+	while (a >= 10) {
+		sq.emplace_back(a % 10);
+		a /= 10;
+	}
+	sq.emplace_back(a);
+}
+
+int main() {
+	int n;
+	cin >> n;
+	if (n < 100)
+		cout << n;
+	else {
+		int cnt = 99;
+		for (int i = 100; i <= n; i++) {
+			sq.clear();
+			separation(i);
+			bool isAs = true;
+			for (int j = 0; j < sq.size() - 2; j++) {
+				if (sq[j] - sq[j + 1] != sq[j + 1] - sq[j + 2]) {
+					isAs = false;
+					break;
+				}
+			}
+			if (isAs)
+				cnt++;
+		}
+		cout << cnt;
+	}
+}
