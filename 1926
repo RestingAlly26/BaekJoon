@@ -1,0 +1,41 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int dx[4] = { -1, 0, 1, 0 }, dy[4] = { 0, -1, 0, 1 };
+int n, m, mp[500][500];
+int cnt;
+
+bool checkRange(const int a, const int b, const int c) {
+	if (a + dy[c] >= 0 && a + dy[c] < n && b + dx[c] >= 0 && b + dx[c] < m)
+		return true;
+	return false;
+}
+
+void size(const int a, const int b) {
+	cnt++;
+	mp[a][b] = 0;
+	for (int i = 0; i < 4; i++) 
+		if (checkRange(a, b, i)) 
+			if (mp[a + dy[i]][b + dx[i]]) 
+				size(a + dy[i], b + dx[i]);
+}
+
+int main(void) {
+	cin >> n >> m;
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < m; j++)
+			cin >> mp[i][j];
+	int pictureNum = 0, biggest = 0;
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < m; j++) {
+			if (mp[i][j]) {
+				cnt = 0;
+				pictureNum++;
+				size(i, j);
+				if (biggest < cnt)
+					biggest = cnt;
+			}
+		}
+	}
+	cout << pictureNum << endl << biggest;
+}
