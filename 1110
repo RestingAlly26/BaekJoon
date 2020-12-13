@@ -1,0 +1,18 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	int original, cnt = 1;
+	cin >> original;
+	int var = original;
+	while (true) {
+		if (var % 10 + var / 10 >= 10)
+			var = var % 10 * 11 + var / 10 - 10;
+		else
+			var = var % 10 * 11 + var / 10;
+		if (var == original)
+			break;
+		cnt++;
+	}
+	cout << cnt;
+}
